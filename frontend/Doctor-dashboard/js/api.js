@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8080/api";
+const API_BASE_URL = "https://patient-record-management-platform-production.up.railway.app/api";
 
 /**
  * Get JWT Authentication Headers

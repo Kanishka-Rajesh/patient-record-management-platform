@@ -1,5 +1,5 @@
 console.log("API.JS IS RUNNING");
-const API_BASE_URL = "http://localhost:8080/api";
+const API_BASE_URL = "https://patient-record-management-platform-production.up.railway.app/api";
 
 function getAuthHeaders() {
     const token = localStorage.getItem("token");
@@ -12,7 +12,7 @@ function getAuthHeaders() {
 
 export async function loginUser(username, password) {
   try {
-    const response = await fetch("http://localhost:8080/auth/login", {
+    const response = await fetch("https://patient-record-management-platform-production.up.railway.app/auth/login", {
       //127.0.0.1
       method: "POST",
       headers: {
