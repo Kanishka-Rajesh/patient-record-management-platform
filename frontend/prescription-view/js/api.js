@@ -39,13 +39,15 @@ console.log("URL = http://127.0.0.1:8080/api/prescriptions");
 
       console.log(requestPayload);
 
-      const token = localStorage.getItem("token");
 
 console.log("TOKEN =", token);
 
+console.log("ABOUT TO FETCH");
+
 fetch(
-  "http://127.0.0.1:8080/api/prescriptions",
-  {
+"http://127.0.0.1:8080/api/prescriptions",
+{
+
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -54,7 +56,9 @@ fetch(
     },
     body: JSON.stringify(requestPayload)
   }
+
 )
+
       
         .then((response) => {
           if (!response.ok) {
@@ -84,10 +88,11 @@ fetch(
 
     return new Promise((resolve, reject) => {
       fetch(
-  "http://127.0.0.1:8080/api/prescriptions", {
+`http://127.0.0.1:8080/api/prescriptions/patient/${patientId}`, {
         method: "GET",
         headers: {
-          Accept: "application/json",
+          "Accept":"application/json",
+    "Authorization":"Bearer " + localStorage.getItem("token")
         },
         credentials: "include", // Include cookies if needed for authentication
       })

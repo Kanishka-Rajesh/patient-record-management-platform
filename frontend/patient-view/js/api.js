@@ -90,15 +90,12 @@ export async function searchPatientsByName(name) {
         }
 
         const response = await fetch(
-
-            `${API_BASE_URL}/prescriptions/search?name=${encodeURIComponent(name)}`,
-
-            {
-                method: "GET",
-                headers: getAuthHeaders()
-            }
-
-        );
+    `${API_BASE_URL}/patients/search?keyword=${encodeURIComponent(name)}`,
+    {
+        method: "GET",
+        headers: getAuthHeaders()
+    }
+);
 
         if (!response.ok) {
 

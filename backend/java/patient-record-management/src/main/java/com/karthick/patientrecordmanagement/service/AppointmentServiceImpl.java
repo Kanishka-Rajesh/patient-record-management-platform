@@ -2,12 +2,15 @@ package com.karthick.patientrecordmanagement.service;
 
 import com.karthick.patientrecordmanagement.dto.AppointmentDTO;
 import com.karthick.patientrecordmanagement.entity.Appointment;
+import com.karthick.patientrecordmanagement.entity.Patient;
 import com.karthick.patientrecordmanagement.exception.ResourceNotFoundException;
 import com.karthick.patientrecordmanagement.mapper.AppointmentMapper;
 import com.karthick.patientrecordmanagement.repository.AppointmentRepository;
+import com.karthick.patientrecordmanagement.repository.PatientRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.karthick.patientrecordmanagement.exception.ResourceNotFoundException;
+
 
 import java.util.List;
 
@@ -16,15 +19,30 @@ import java.util.List;
 public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
+    private final PatientRepository patientRepository;
 
     @Override
     public AppointmentDTO createAppointment(AppointmentDTO appointmentDTO) {
 
-        Appointment appointment = AppointmentMapper.toEntity(appointmentDTO);
+        Patient patient = patientRepository.findById(
+        appointmentDTO.getPatientId())
+        .orElseThrow(() ->
+                new ResourceNotFoundException("Patient not found"));
 
-        Appointment savedAppointment = appointmentRepository.save(appointment);
+Appointment appointment = AppointmentMapper.toEntity(appointmentDTO);
 
-        return AppointmentMapper.toDTO(savedAppointment);
+// Copy patient details automatically
+appointment.setName(patient.getName());
+appointment.setMobileNumber(patient.getMobileNumber());
+appointment.setDateOfBirth(patient.getDateOfBirth());
+appointment.setWeight(patient.getWeight());
+
+Appointment savedAppointment =
+        appointmentRepository.save(appointment);
+
+return AppointmentMapper.toDTO(savedAppointment);
+
+        
     }
 
     @Override

@@ -1,54 +1,79 @@
 import { loginUser } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const loginForm = document.querySelector(".login-form");
-  const emailInput = document.getElementById("email");
-  const passwordInput = document.getElementById("password");
-  const errorModal = document.getElementById("errorModal");
-  const closeBtn = document.getElementById("closeBtn");
-  const errorMessage = document.getElementById("errorMessage");
 
-  // Close the error modal when close button is clicked
-  closeBtn.addEventListener("click", () => {
-    errorModal.style.display = "none";
-  });
+    console.log("DOM.JS IS RUNNING");
 
-  // Show error modal with a message
-  function showError(message) {
-    errorMessage.textContent = message;
-    errorModal.style.display = "flex";
-  }
+    const loginForm = document.querySelector(".login-form");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
 
-  loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+    loginForm.addEventListener("submit", async (event) => {
 
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
+        event.preventDefault();
 
-    if (!email || !password) {
-      showError("Please enter both email and password.");
-      return;
-    }
+        const username = emailInput.value.trim();
+        const password = passwordInput.value;
 
-    const { status, data } = await loginUser(email, password);
+        if (!username || !password) {
+            window.alertSystem.error("Please enter username and password.");
+            return;
+        }
 
-    if (status === 200 && data?.data) {
-      const role = data.data.role;
+        try {
 
-      // Show success message with role information
-      showError(`${data.message} - Role: ${role}`);
+            const { status, data } = await loginUser(username, password);
 
-      // Redirect based on role
-      if (role === "DOCTOR") {
-        window.location.href = "../Doctor-dashboard/index.html";
-      } else if (role === "RECEPTIONIST") {
-        window.location.href = "../Receptionst-dashboard/index.html";
-      } else {
-        showError("Unknown role. Please contact admin.");
-      }
-    } else {
-      // Show specific error message if the credentials are wrong
-      showError(data.message || "Login failed. Please try again.");
-    }
-  });
+            console.log(status);
+            console.log(data);
+
+            if (status === 200) {
+
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("username", data.username);
+                localStorage.setItem("role", data.role);
+
+                window.alertSystem.success("Login Successful");
+
+                setTimeout(() => {
+
+                    const role = data.role;
+
+                    if (role === "ROLE_ADMIN" || role === "ROLE_DOCTOR") {
+
+                        window.location.href = "../Doctor-dashboard/index.html";
+
+                    } else if (role === "ROLE_RECEPTIONIST") {
+
+                        window.location.href = "../Receptionst-dashboard/index.html";
+
+                    } else if (role === "ROLE_PATIENT") {
+
+                        window.location.href = "../Patient-dashboard/index.html";
+
+                    } else {
+
+                        window.alertSystem.error("Unknown Role : " + role);
+
+                    }
+
+                }, 1200);
+
+            } else {
+
+                window.alertSystem.error(
+                    data.message || "Login failed. Please try again."
+                );
+
+            }
+
+        } catch (err) {
+
+            console.error(err);
+            window.alertSystem.error("Something went wrong.");
+
+        }
+
+    });
+
 });

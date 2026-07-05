@@ -1,6 +1,6 @@
 // Alert System Implementation
 // This should be included before your main script
-
+console.log("ALERT.JS LOADED");
 // Create the alertSystem global object
 window.alertSystem = {
   // Show success message
@@ -95,12 +95,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // We'll use the new alert system instead of the error modal
 
   loginForm.addEventListener("submit", async (event) => {
+
+    console.log("SUBMIT EVENT FIRED");
     event.preventDefault();
 
     const username = emailInput.value.trim();
     const password = passwordInput.value;
 
-    if (!email || !password) {
+    if (!username || !password) {
       window.alertSystem.error("Please enter both email and password.");
       return;
     }

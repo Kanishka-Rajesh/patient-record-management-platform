@@ -18,5 +18,7 @@ public interface PatientService {
 
     Long getPatientCount();
 
+    List<PatientDTO> searchPatients(String keyword);
+
     
 }

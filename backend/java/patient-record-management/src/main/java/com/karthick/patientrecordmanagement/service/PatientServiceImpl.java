@@ -72,5 +72,15 @@ public Long getPatientCount() {
         patientRepository.deleteById(id);
     }
 
+    @Override
+public List<PatientDTO> searchPatients(String keyword) {
+
+    return patientRepository
+            .findByNameContainingIgnoreCase(keyword)
+            .stream()
+            .map(PatientMapper::toDTO)
+            .toList();
+
+}
     
 }

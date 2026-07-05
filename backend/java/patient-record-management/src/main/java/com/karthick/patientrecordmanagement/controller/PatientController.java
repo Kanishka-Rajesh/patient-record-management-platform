@@ -64,5 +64,15 @@ public class PatientController {
         return ResponseEntity.ok("Patient deleted successfully");
     }
 
+    @GetMapping("/search")
+public ResponseEntity<List<PatientDTO>> searchPatients(
+        @RequestParam String keyword) {
+
+    return ResponseEntity.ok(
+            patientService.searchPatients(keyword)
+    );
+
+}
+
    
 }

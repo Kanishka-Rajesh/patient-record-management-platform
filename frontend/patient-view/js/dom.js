@@ -103,6 +103,7 @@ import {
 
       if (currentSearchTerm) {
         response = await searchPatientsByName(currentSearchTerm);
+        console.log("Search Response =", response);
       } else {
         response = await fetchPatients();
       }
@@ -115,6 +116,9 @@ import {
       } else {
         // This might be direct data array (from the api.js sample data fallback)
         patients = response;
+
+        console.log("Patients =", patients);
+console.log("Length =", patients.length);
       }
 
       totalPatients = patients.length;

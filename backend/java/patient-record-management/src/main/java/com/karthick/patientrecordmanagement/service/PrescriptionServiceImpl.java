@@ -19,21 +19,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     private final PrescriptionRepository prescriptionRepository;
     private final PatientRepository patientRepository;
 
-    @Override
-    public PrescriptionDTO createPrescription(PrescriptionDTO prescriptionDTO) {
-
-        Prescription prescription = PrescriptionMapper.toEntity(prescriptionDTO);
-
-Patient patient = patientRepository.findById(prescriptionDTO.getPatientId())
-        .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));
-
-prescription.setPatient(patient);
-
-Prescription saved = prescriptionRepository.save(prescription);
-
-return PrescriptionMapper.toDTO(saved);
-    }
-
+   
     @Override
     public PrescriptionDTO getPrescriptionById(Long id) {
 
@@ -72,4 +58,52 @@ return PrescriptionMapper.toDTO(saved);
 
         prescriptionRepository.deleteById(id);
     }
+
+    @Override
+public List<PrescriptionDTO> getByPatientId(Long patientId) {
+
+    return prescriptionRepository
+            .findByPatientId(patientId)
+            .stream()
+            .map(PrescriptionMapper::toDTO)
+            .toList();
+}
+
+    @Override
+public PrescriptionDTO createPrescription(PrescriptionDTO prescriptionDTO) {
+
+    try {
+
+        System.out.println("STEP 1");
+
+        Prescription prescription = PrescriptionMapper.toEntity(prescriptionDTO);
+
+        System.out.println("STEP 2");
+
+        Patient patient = patientRepository.findById(prescriptionDTO.getPatientId())
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));
+
+        System.out.println("STEP 3");
+
+        prescription.setPatient(patient);
+
+        System.out.println("STEP 4");
+
+        Prescription saved = prescriptionRepository.save(prescription);
+
+        System.out.println("STEP 5");
+
+        PrescriptionDTO dto = PrescriptionMapper.toDTO(saved);
+
+        System.out.println("STEP 6");
+
+        return dto;
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+        throw e;
+    }
+}
 }

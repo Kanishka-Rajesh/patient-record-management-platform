@@ -17,6 +17,10 @@ public class PrescriptionMapper {
 
         PrescriptionDTO dto = new PrescriptionDTO();
 
+        dto.setPatientId(
+    prescription.getPatient().getId()
+);
+
         dto.setSymptoms(prescription.getSymptoms());
         dto.setFindings(prescription.getFindings());
         dto.setDiagnosis(prescription.getDiagnosis());

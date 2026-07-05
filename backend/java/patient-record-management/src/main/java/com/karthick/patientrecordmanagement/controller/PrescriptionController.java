@@ -15,13 +15,7 @@ public class PrescriptionController {
 
     private final PrescriptionService prescriptionService;
 
-    @PostMapping
-    public ResponseEntity<PrescriptionDTO> createPrescription(
-            @RequestBody PrescriptionDTO prescriptionDTO) {
-
-        return ResponseEntity.ok(
-                prescriptionService.createPrescription(prescriptionDTO));
-    }
+   
 
     @GetMapping("/{id}")
     public ResponseEntity<PrescriptionDTO> getPrescription(
@@ -62,5 +56,16 @@ public ResponseEntity<List<PrescriptionDTO>> getByPatientId(
 
     return ResponseEntity.ok(
             prescriptionService.getByPatientId(patientId));
+}
+
+@PostMapping
+public ResponseEntity<PrescriptionDTO> createPrescription(
+        @RequestBody PrescriptionDTO prescriptionDTO) {
+
+    System.out.println("========== CONTROLLER HIT ==========");
+    System.out.println(prescriptionDTO);
+
+    return ResponseEntity.ok(
+            prescriptionService.createPrescription(prescriptionDTO));
 }
 }
