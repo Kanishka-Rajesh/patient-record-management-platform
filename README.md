@@ -1,6 +1,6 @@
 <div align="center">
 
-# Enterprise Patient Record Management Platform
+# Patient Record Management Platform
 
 ### Full Stack Healthcare Management System
 
