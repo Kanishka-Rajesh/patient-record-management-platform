@@ -4,15 +4,6 @@
 
 ### Full Stack Healthcare Management System
 
-<p align="center">
-<img src="https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk">
-<img src="https://img.shields.io/badge/Spring_Boot-3.4-success?style=for-the-badge&logo=springboot">
-<img src="https://img.shields.io/badge/Spring_Security-JWT-green?style=for-the-badge">
-<img src="https://img.shields.io/badge/MySQL-Database-blue?style=for-the-badge&logo=mysql">
-<img src="https://img.shields.io/badge/REST_API-Enterprise-red?style=for-the-badge">
-<img src="https://img.shields.io/badge/HTML5-CSS3-JavaScript?style=for-the-badge">
-</p>
-
 A secure, scalable, enterprise-grade Patient Record Management Platform developed using Spring Boot, Spring Security, JWT Authentication, MySQL, RESTful APIs and a responsive frontend.
 
 </div>
@@ -484,10 +475,6 @@ SSN College of Engineering
 GitHub
 
 https://github.com/Kanishka-Rajesh
-
-LinkedIn
-
-(Add your LinkedIn profile here)
 
 ---
 
